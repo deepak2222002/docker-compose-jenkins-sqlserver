@@ -35,7 +35,10 @@ services:
       DB_USERNAME: ${DB_USERNAME:?Set DB_USERNAME in .env}
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     volumes:
-      - ./sqlserver/init.sql:/scripts/init.sql:ro
+    - type: bind
+      source: ./sqlserver/init.sql
+      target: /scripts/init.sql
+      read_only: true
     networks:
       - app-network
     entrypoint: ["/bin/bash", "-c"]
